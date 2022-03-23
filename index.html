@@ -1,40 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODEPRO FORM</title>
-    <link rel="stylesheet" href="style.css" >
-</head>
-<body>
-    <form method="POST" action="index.html" id="myform">
-    <div class="container">
-    <div class="main">
-        <div class = "submain">
-            <div class="logo"><img src="./assets/logo.png"></div>
-            <label class="label">CODEPRO</label>
-            <a href="#" class="login" onclick id = "page1">Log In</a>
-            <div class="signupBox"></div>
-            <a href="#" class = "signup" onclick  id = "page2">Sign Up</a>
-            <label class = "heading">For the Love of Coding</label>
-            <p class = "para">CODEPRO is built with a vision to help other ProGrads host and review code, manage projects and collaborate alongside 1 million ProGrads.</p>
-            <div class = "signupPage"></div>
-            <label class = "username">USERNAME</label>
-            <input type="text" class = "usertext" name="username" id = "usertext" placeholder="Enter your username"/>
-            <div id="name_error" class="nameerror"></div>
-            <label class = "email">EMAIL</label>
-            <input type="text" class = "emailtext" name="email" id = "emailtext" placeholder="Enter your email"/>
-            <div id="email_error" class="emailerror"></div>
-            <label class = "password">PASSWORD</label>
-            <input type="password" class = "passwordtext" name="password" id = "passwordtext" placeholder="Enter your password"/>
-            <div id="password_error" class="passworderror"></div>
-            <input type="button" class = "submit" id="submit" value = "Sign Up for CODEPRO" />
-        </div>
-    </div>
-    </div>
-        <footer class = "footer" >Made with <img src = "./assets/Vector.svg"> by ProGrad</footer>
-</form>
-</form>
-</body>
-<script src="./script.js"></script>
-</html>
+// Progression 1 
+// Check username
+// create a function called as checkUserName()
+// username should not be empty
+// username should be a minimum of 8 characters and above 
+// username should be less than 15 characters
+// No space is allowed in username
+// username should not contain special characters
+// the function should return true if all the conditions above are validated.
+// return false if the validation fails
+
+// Progression 2 
+// Check mail
+// create a function called as checkEmail()
+// only @ , . , _ [at,dot,underscore] is allowed
+// It can be alphanumeric in nature
+// return true if it passses all validation and false otherwise
+
+// Progression 3
+// Check password
+// create a function called as checkPassword()
+// should be alphanumeric in nature
+// password must contain atleast one Uppercase, one number and special characters[!@#$%^&*()_]
+// return true else return false
+
+
+let username = document.getElementById('submit')
+username.addEventListener('click', () => {
+
+    let name = document.getElementById('usertext').value;
+    let nameRegex = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{8,14}$/g;
+    nameRegex.test(name) ? name : document.getElementById('name_error').innerHTML = "Enter a valid username";
+
+    let email = document.getElementById('emailtext').value;
+    let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    emailRegex.test(email) ? email : document.getElementById('email_error').innerHTML = "Enter a valid Email id";
+
+    let p = document.getElementById('passwordtext').value;
+    errors = [];
+    if (p.length < 8 || p.length > 16) {
+        errors.push("Your password must be within 8 and 16 character length."); 
+    }
+    if (p.search(/[!@#$%^&*()_]/) < 0) {
+        errors.push("Your password must contain one special character."); 
+    }
+    if (p.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one Capital letter.");
+    }
+    if (p.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one number."); 
+    }
+    if (errors.length > 0) {
+        document.getElementById('password_error').innerHTML = errors.join("<br>");
+        return false;
+    }
+    return true;
+
+});
